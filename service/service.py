@@ -51,3 +51,28 @@ class ServiceTest:
         conex = TesteDao.conectar()
         results = TesteDao.deleteCategoria(conex[0], conex[1], cod_categ)
         return results
+    
+    def selectAlocacoes():
+        conex = TesteDao.conectar()
+        results = TesteDao.selectAlocacoes(conex[0])
+        return results
+    
+    def selectAlocacao(cod_aloc):
+        conex = TesteDao.conectar()
+        results = TesteDao.selectAlocacao(conex[0], cod_aloc)
+        return results
+
+    def criarAlocacao(userDetails):
+        conex = TesteDao.conectar()
+        results = TesteDao.criarAlocacao(conex[0], conex[1], userDetails)
+        return results
+
+    def updateAlocacao(userDetails):
+        conex = TesteDao.conectar()
+        results = TesteDao.updateAlocacao(conex[0], conex[1], userDetails)
+        return results
+
+    def deleteAlocacao(cod_aloc):
+        conex = TesteDao.conectar()
+        results = TesteDao.deleteAlocacao(conex[0], conex[1], cod_aloc)
+        return results

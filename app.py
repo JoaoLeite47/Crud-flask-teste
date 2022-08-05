@@ -1,4 +1,3 @@
-import json
 from resources import *
 from service.service import ServiceTest
 
@@ -63,7 +62,7 @@ def cat_get(cod_categ):
     return jsonify(categoria)
 
 
-@app.route("/categoria/", methods=['POST'])  # post categoria FUNCIONAL
+@app.route("/categoria/novo/", methods=['POST'])  # post categoria FUNCIONAL
 def categoria_post():
     userDetails = (request.json)
     criarCategoria = ServiceTest.criarCategoria(userDetails)
@@ -98,53 +97,46 @@ def cat_delete(cod_categ):
 
 @app.route("/alocacao")  # get all alocacao
 def home_alocacao():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM alocacao")
-    data = cur.fetchall()
-    return jsonify(data)
+    alocacoes = ServiceTest.selectAlocacoes()
+    return jsonify(alocacoes)
 
 
 # get by id_aloc alocacao FUNCIONAL
 @app.route("/alocacao/<id_aloc>/", methods=['GET'])
 def aloc_get(id_aloc):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM alocacao WHERE id_aloc = %s", (id_aloc,))
-    data = cur.fetchall()
-    return jsonify(data)
+    alocacao = ServiceTest.selectAlocacao(id_aloc)
+    return jsonify(alocacao)
 
 
-@app.route("/alocacao/", methods=['POST'])  # post alocacao  NAO FUNCIONAL
+@app.route("/alocacao/novo/", methods=['POST'])  # post alocacao  NAO FUNCIONAL
 def alocacao_post():
     userDetails = (request.json)
-    dt_saida = userDetails['dt_saida']
-    dt_entrega = userDetails['dt_entrega']
-    cpf_fk = userDetails['cpf_fk']
-    chassi_fk = userDetails['chassi_fk']
-    cur = mysql.connection.cursor()
-    cur.execute(
-        "INSERT INTO alocacao (dt_saida, dt_entrega, cpf_fk, chassi_fk) VALUES (%s, %s, %s, %s,)", (dt_saida, dt_entrega, cpf_fk, chassi_fk))
-    mysql.connection.commit()
-    return ("status" "ok, Criado com sucesso")
+    criarAlocacao = ServiceTest.criarAlocacao(userDetails)
+    if criarAlocacao == 0:
+        return jsonify({"message": "Falha na criação da alocacao"}), 400
+    return jsonify("status" "ok, Criado com sucesso"), 201
 
-# @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
-# def cliente_put(cpf):
-#     userDetails = (request.form)
-#     nome = userDetails['nome']
-#     endereco = userDetails['endereco']
-#     cur = mysql.connection.cursor()
-#     cur.execute(
-#         "UPDATE cliente SET nome = %s, endereco = %s WHERE cpf = %s", (nome, endereco, cpf))
-#     mysql.connection.commit()
-#     return ("status" "ok, alterado com sucesso")
+
+@app.route('/alocacao/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def cliente_put():
+    userDetails = (request.form)
+    id_aloc = userDetails['id_aloc']
+    alocacao = ServiceTest.updateAlocacao(id_aloc)
+    if alocacao == None:
+        return jsonify({"message": "Alocacao não encontrada"}), 400
+    alocacao_u = ServiceTest.updateAlocacao(userDetails)
+    if alocacao_u == 0:
+        return jsonify({"message": "Falha na atualização da alocacao"}), 400
+    return jsonify({"status" "ok, alterado com sucesso"}), 201
 
 
 # delete alocacao FUNCIONAL
 @app.route('/alocacao/<id_aloc>/', methods=['DELETE'])
 def alocacao_delete(id_aloc):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM alocacao WHERE id_aloc = %s", (id_aloc,))
-    mysql.connection.commit()
-    return ("message" "ok, deletado com sucesso")
+    alocacao = ServiceTest.deleteAlocacao(id_aloc)
+    if alocacao == 0:
+        return jsonify({"message": "Falha na remoção da alocacao"}), 400
+    return jsonify({"message" "ok, deletado com sucesso"}), 201
 
 # carro table
 

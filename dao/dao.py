@@ -99,6 +99,45 @@ class TesteDao:
         return mycursor.rowcount
 
     def deleteCategoria(mycursor: object, mydb: object, cod_categ: int) -> list:
-        mycursor.execute("DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
+        mycursor.execute(
+            "DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def selectAlocacoes(mycursor: object) -> list:
+        mycursor.execute("SELECT * FROM Alocacao")
+        myresult = mycursor.fetchall()
+        return myresult
+
+    def selectAlocacao(mycursor: object, cod_alocacao: int) -> list:
+        mycursor.execute(
+            "SELECT * FROM Alocacao WHERE cod_alocacao = %s", (cod_alocacao,))
+        myresult = mycursor.fetchone()
+        return myresult
+
+    def criarAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+        cpf_fk = userDetails['cpf_fk']
+        chassi_fk = userDetails['chassi_fk']
+        dt_saida = userDetails['dt_saida']
+        dt_entrega = userDetails['dt_entrega']
+        id_aloc = userDetails['id_aloc']
+        mycursor.execute("INSERT INTO Alocacao (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc) VALUES (%s, %s, %s, %s, %s)",
+                         (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+        cpf_fk = userDetails['cpf_fk']
+        chassi_fk = userDetails['chassi_fk']
+        dt_saida = userDetails['dt_saida']
+        dt_entrega = userDetails['dt_entrega']
+        id_aloc = userDetails['id_aloc']
+        mycursor.execute("UPDATE Alocacao SET cpf_fk = %s, chassi_fk = %s, dt_saida = %s, dt_entrega = %s, id_aloc = %s WHERE id_aloc = %s",
+                         (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc,))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def deleteAlocacao(mycursor: object, mydb: object, cod_alocacao: int) -> list:
+        mycursor.execute("DELETE FROM Alocacao WHERE cod_alocacao = %s", (cod_alocacao,))
         mydb.commit()
         return mycursor.rowcount
