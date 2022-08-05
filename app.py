@@ -26,20 +26,21 @@ def cliente_post():
     return jsonify({'message': 'Cliente criado com sucesso!'}), 201
 
 
-@app.route('/cliente/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def cliente_put():
-    userDetails = (request.form)
-    cpf = userDetails['cpf']
-    cliente = ServiceTest.selectCliente(cpf)
-    if cliente == None:
-        return jsonify({"message": "Cliente não encontrado"}), 400
-    cliente_u = ServiceTest.updateCliente(userDetails)
-    if cliente_u == 0:
-        return jsonify({"message": "Falha na atualização do cliente"}), 400
-    return jsonify({"status": "ok, alterado com sucesso"}), 201
+# @app.route('/cliente/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+# def cliente_put():
+#     userDetails = (request.form)
+#     cpf = userDetails['cpf']
+#     cliente = ServiceTest.selectCliente(cpf)
+#     if cliente == None:
+#         return jsonify({"message": "Cliente não encontrado"}), 400
+#     cliente_u = ServiceTest.updateCliente(userDetails)
+#     if cliente_u == 0:
+#         return jsonify({"message": "Falha na atualização do cliente"}), 400
+#     return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
-@app.route('/cliente/delete/<cpf>/', methods=['POST'])  # delete cliente FUNCIONAL
+# delete cliente FUNCIONAL
+@app.route('/cliente/delete/<cpf>/', methods=['POST'])
 def cliente_delete(cpf):
     cliente = ServiceTest.deleteCliente(cpf)
     if cliente == 0:
@@ -51,52 +52,46 @@ def cliente_delete(cpf):
 
 @app.route("/categoria")  # get all categoria
 def home_cat():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM categoria")
-    data = cur.fetchall()
-    return jsonify(data)
+    categoria = ServiceTest.selectCategorias()
+    return jsonify(categoria)
 
 
 # get by cod_categ categoria FUNCIONAL
 @app.route("/categoria/<cod_categ>/", methods=['GET'])
 def cat_get(cod_categ):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM categoria WHERE cod_categ = %s", (cod_categ,))
-    data = cur.fetchall()
-    return jsonify(data)
+    categoria = ServiceTest.selectCategoria(cod_categ)
+    return jsonify(categoria)
 
 
 @app.route("/categoria/", methods=['POST'])  # post categoria FUNCIONAL
 def categoria_post():
     userDetails = (request.json)
-    cod_categ = userDetails['cod_categ']
-    descricao = userDetails['descricao']
-    valor_diaria = userDetails['valor_diaria']
-    cur = mysql.connection.cursor()
-    cur.execute(
-        "INSERT INTO categoria (cod_categ, descricao, valor_diaria) VALUES (%s, %s, %s)", (cod_categ, descricao, valor_diaria))
-    mysql.connection.commit()
-    return ("status" "ok, Criado com sucesso")
+    criarCategoria = ServiceTest.criarCategoria(userDetails)
+    if criarCategoria == 0:
+        return jsonify({"message": "Falha na criação da categoria"}), 400
+    return jsonify("status" "ok, Criado com sucesso"), 201
 
-# @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
-# def cliente_put(cpf):
+
+# @app.route('/categoria/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+# def categoria_up():
 #     userDetails = (request.form)
-#     nome = userDetails['nome']
-#     endereco = userDetails['endereco']
-#     cur = mysql.connection.cursor()
-#     cur.execute(
-#         "UPDATE cliente SET nome = %s, endereco = %s WHERE cpf = %s", (nome, endereco, cpf))
-#     mysql.connection.commit()
-#     return ("status" "ok, alterado com sucesso")
+#     cod_categ = userDetails['cod_categ']
+#     categoria = ServiceTest.updateCategoria(cod_categ)
+#     if categoria == None:
+#         return jsonify({"message": "Categoria não encontrada"}), 400
+#     categoria_u = ServiceTest.updateCategoria(userDetails)
+#     if categoria_u == 0:
+#         return jsonify({"message": "Falha na atualização da categoria"}), 400
+#     return jsonify("status" "ok, alterado com sucesso"), 201
 
 
 # delete categoria FUNCIONAL
 @app.route("/categoria/<cod_categ>/", methods=['DELETE'])
 def cat_delete(cod_categ):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM categoria WHERE cod_categ = %s", (cod_categ,))
-    mysql.connection.commit()
-    return ("message" "ok, deletado com sucesso")
+    categoria = ServiceTest.deleteCategoria(cod_categ)
+    if categoria == 0:
+        return jsonify({"message": "Falha na remoção da categoria"}), 400
+    return jsonify({"message" "ok, deletado com sucesso"}), 201
 
 # alocação table
 

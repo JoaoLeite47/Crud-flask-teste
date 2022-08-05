@@ -69,3 +69,36 @@ class TesteDao:
         mycursor.execute("DELETE FROM Cliente WHERE cpf = %s", (cpf,))
         mydb.commit()
         return mycursor.rowcount
+
+    def selectCategorias(mycursor: object) -> list:
+        mycursor.execute("SELECT * FROM Categoria")
+        myresult = mycursor.fetchall()
+        return myresult
+
+    def selectCategoria(mycursor: object, cod_categ: int) -> list:
+        mycursor.execute(
+            "SELECT * FROM Categoria WHERE cod_categ = %s", (cod_categ,))
+        myresult = mycursor.fetchone()
+        return myresult
+
+    def criarCategoria(mycursor: object, mydb: object, userDetails: dict) -> list:
+        descricao = userDetails['descricao']
+        valor_diaria = userDetails['valor_diaria']
+        mycursor.execute(
+            "INSERT INTO Categoria (valor_diaria, valor_diaria) VALUES (%s, %s)", (valor_diaria, descricao))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def updateCategoria(mycursor: object, mydb: object, userDetails: dict,) -> list:
+        cod_categ = userDetails['cod_categ']
+        descricao = userDetails['descricao']
+        valor_diaria = userDetails['valor_diaria']
+        mycursor.execute(
+            "UPDATE Categoria SET descricao = %s, valor_diaria = %s WHERE cod_categ = %s", (descricao, valor_diaria, cod_categ))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def deleteCategoria(mycursor: object, mydb: object, cod_categ: int) -> list:
+        mycursor.execute("DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
+        mydb.commit()
+        return mycursor.rowcount
