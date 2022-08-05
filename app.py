@@ -25,17 +25,17 @@ def cliente_post():
     return jsonify({'message': 'Cliente criado com sucesso!'}), 201
 
 
-# @app.route('/cliente/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-# def cliente_put():
-#     userDetails = (request.form)
-#     cpf = userDetails['cpf']
-#     cliente = ServiceTest.selectCliente(cpf)
-#     if cliente == None:
-#         return jsonify({"message": "Cliente não encontrado"}), 400
-#     cliente_u = ServiceTest.updateCliente(userDetails)
-#     if cliente_u == 0:
-#         return jsonify({"message": "Falha na atualização do cliente"}), 400
-#     return jsonify({"status": "ok, alterado com sucesso"}), 201
+@app.route('/cliente/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def cliente_put():
+    userDetails = (request.form)
+    cpf = userDetails['cpf']
+    cliente = ServiceTest.selectCliente(cpf)
+    if cliente == None:
+        return jsonify({"message": "Cliente não encontrado"}), 400
+    cliente_u = ServiceTest.updateCliente(userDetails)
+    if cliente_u == 0:
+        return jsonify({"message": "Falha na atualização do cliente"}), 400
+    return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
 # delete cliente FUNCIONAL
@@ -85,7 +85,7 @@ def categoria_post():
 
 
 # delete categoria FUNCIONAL
-@app.route("/categoria/<cod_categ>/", methods=['DELETE'])
+@app.route("/categoria/delete/<cod_categ>/", methods=['DELETE'])
 def cat_delete(cod_categ):
     categoria = ServiceTest.deleteCategoria(cod_categ)
     if categoria == 0:
@@ -118,7 +118,7 @@ def alocacao_post():
 
 
 @app.route('/alocacao/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def cliente_put():
+def alocacao_up():
     userDetails = (request.form)
     id_aloc = userDetails['id_aloc']
     alocacao = ServiceTest.updateAlocacao(id_aloc)
@@ -131,7 +131,7 @@ def cliente_put():
 
 
 # delete alocacao FUNCIONAL
-@app.route('/alocacao/<id_aloc>/', methods=['DELETE'])
+@app.route('/alocacao/delete/<id_aloc>/', methods=['DELETE'])
 def alocacao_delete(id_aloc):
     alocacao = ServiceTest.deleteAlocacao(id_aloc)
     if alocacao == 0:
@@ -143,51 +143,45 @@ def alocacao_delete(id_aloc):
 
 @app.route("/carro")  # get all carros
 def home_carro():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM carro")
-    data = cur.fetchall()
-    return jsonify(data)
+    carros = ServiceTest.selectCarros()
+    return jsonify(carros)
 
 
 # get by chassi carro FUNCIONAL
 @app.route("/carro/<chassi>/", methods=['GET'])
 def carro_get(chassi):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM carro WHERE chassi = %s", (chassi,))
-    data = cur.fetchall()
-    return jsonify(data)
+    carro = ServiceTest.selectCarro(chassi)
+    return jsonify(carro)
 
-# @app.route("/alocacao/", methods=['POST'])  # post alocacao FUNCIONAL
-# def alocacao_post():
-#     userDetails = (request.json)
-#     dt_saida = userDetails['dt_saida']
-#     dt_entrega = userDetails['dt_entrega']
-#     cpf_fk = userDetails['cpf_fk']
-#     chassi_fk = userDetails['chassi_fk']
-#     cur = mysql.connection.cursor()
-#     cur.execute(
-#         "INSERT INTO alocacao (dt_saida, dt_entrega, cpf_fk, chassi_fk) VALUES (%s, %s, %s, %s,)", (dt_saida, dt_entrega, cpf_fk, chassi_fk))
-#     mysql.connection.commit()
-#     return ("status" "ok, Criado com sucesso")
 
-# @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
-# def cliente_put(cpf):
-#     userDetails = (request.form)
-#     nome = userDetails['nome']
-#     endereco = userDetails['endereco']
-#     cur = mysql.connection.cursor()
-#     cur.execute(
-#         "UPDATE cliente SET nome = %s, endereco = %s WHERE cpf = %s", (nome, endereco, cpf))
-#     mysql.connection.commit()
-#     return ("status" "ok, alterado com sucesso")
+@app.route("/carro/novo/", methods=['POST'])  # post alocacao FUNCIONAL
+def carro_post():
+    userDetails = (request.json)
+    criarCarro = ServiceTest.criarCarro(userDetails)
+    if criarCarro == 0:
+        return jsonify({"message": "Falha na criação do carro"}), 400
+    return jsonify("status" "ok, Alterado com sucesso"), 201
+
+
+@app.route('/carro/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def carro_up():
+    userDetails = (request.form)
+    chassi = userDetails['chassi']
+    carro = ServiceTest.updateCarro(chassi)
+    if carro == None:
+        return jsonify({"message": "Carro não encontrado"}), 400
+    carro_u = ServiceTest.updateCarro(userDetails)
+    if carro_u == 0:
+        return jsonify({"message": "Falha na atualização do carro"}), 400
+    return jsonify({"status" "ok, alterado com sucesso"}), 201
 
 
 @app.route('/carro/<chassi>/', methods=['DELETE'])  # delete carro FUNCIONAL
 def carro_delete(chassi):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM carro WHERE chassi = %s", (chassi,))
-    mysql.connection.commit()
-    return ("message" "ok, deletado com sucesso")
+    carro = ServiceTest.deleteCarro(chassi)
+    if carro == 0:
+        return jsonify({"message": "Falha na remoção do carro"}), 400
+    return jsonify({"message" "ok, deletado com sucesso"}), 201
 
 
 if __name__ == '__main__':

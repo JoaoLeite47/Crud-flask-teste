@@ -138,6 +138,48 @@ class TesteDao:
         return mycursor.rowcount
 
     def deleteAlocacao(mycursor: object, mydb: object, cod_alocacao: int) -> list:
-        mycursor.execute("DELETE FROM Alocacao WHERE cod_alocacao = %s", (cod_alocacao,))
+        mycursor.execute(
+            "DELETE FROM Alocacao WHERE cod_alocacao = %s", (cod_alocacao,))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def selectCarros(mycursor: object) -> list:
+        mycursor.execute("SELECT * FROM Carro")
+        myresult = mycursor.fetchall()
+        return myresult
+
+    def selectCarro(mycursor: object, chassi: str) -> list:
+        mycursor.execute("SELECT * FROM Carro WHERE chassi = %s", (chassi,))
+        myresult = mycursor.fetchone()
+        return myresult
+
+    def criarCarro(mycursor: object, mydb: object, userDetails: dict) -> list:
+        chassi = userDetails['chassi']
+        marca = userDetails['marca']
+        modelo = userDetails['modelo']
+        ano = userDetails['ano']
+        cor = userDetails['cor']
+        placa = userDetails['placa']
+        categoria_fk = userDetails['categoria_fk']
+        mycursor.execute("INSERT INTO Carro (chassi, marca, modelo, ano, cor, placa, categoria_fk) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                         (chassi, marca, modelo, ano, cor, placa, categoria_fk))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def updateCarro(mycursor: object, mydb: object, userDetails: dict) -> list:
+        chassi = userDetails['chassi']
+        marca = userDetails['marca']
+        modelo = userDetails['modelo']
+        ano = userDetails['ano']
+        cor = userDetails['cor']
+        placa = userDetails['placa']
+        categoria_fk = userDetails['categoria_fk']
+        mycursor.execute("UPDATE Carro SET marca = %s, modelo = %s, ano = %s, cor = %s, placa = %s, categoria_fk = %s WHERE chassi = %s",
+                         (marca, modelo, ano, cor, placa, categoria_fk, chassi))
+        mydb.commit()
+        return mycursor.rowcount
+
+    def deleteCarro(mycursor: object, mydb: object, chassi: str) -> list:
+        mycursor.execute("DELETE FROM Carro WHERE chassi = %s", (chassi,))
         mydb.commit()
         return mycursor.rowcount
