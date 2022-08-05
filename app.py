@@ -73,7 +73,7 @@ def cat_get(cod_categ):
     return jsonify(data)
 
 
-@app.route("/categoria/", methods=['POST'])  # post cliente FUNCIONAL
+@app.route("/categoria/", methods=['POST'])  # post categoria FUNCIONAL
 def categoria_post():
     userDetails = (request.json)
     cod_categ = userDetails['cod_categ']
@@ -124,21 +124,27 @@ def aloc_get(id_aloc):
     data = cur.fetchall()
     return jsonify(data)
 
-# @app.route("/cliente/<cpf>/", methods=['GET'])  # get by cpf cliente FUNCIONAL
-# def cliente(cpf):
+# @app.route("/alocacao/", methods=['POST'])  # post alocacao  NAO FUNCIONAL
+# def alocacao_post():
+#     userDetails = (request.json)
+#     dt_saida = userDetails['dt_saida']
+#     dt_entrega = userDetails['dt_entrega']
+#     cpf_fk = userDetails['cpf_fk']
+#     chassi_fk = userDetails['chassi_fk']
 #     cur = mysql.connection.cursor()
-#     cur.execute("SELECT * FROM cliente WHERE cpf = %s", (cpf,))
-#     data = cur.fetchall()
-#     return jsonify(data)
+#     cur.execute(
+#         "INSERT INTO alocacao (dt_saida, dt_entrega, cpf_fk, chassi_fk) VALUES (%s, %s, %s, %s,)", (dt_saida, dt_entrega, cpf_fk, chassi_fk))
+#     mysql.connection.commit()
+#     return ("status" "ok, Criado com sucesso")
 
-# @app.route("/cliente/", methods=['POST']) # post cliente NÃO FUNCIONAL
-# def cliente_post():
+# @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
+# def cliente_put(cpf):
 #     userDetails = (request.form)
 #     nome = userDetails['nome']
 #     endereco = userDetails['endereco']
 #     cur = mysql.connection.cursor()
 #     cur.execute(
-#         "INSERT INTO cliente (nome, endereco) VALUES (%s. %s)", (nome, endereco))
+#         "UPDATE cliente SET nome = %s, endereco = %s WHERE cpf = %s", (nome, endereco, cpf))
 #     mysql.connection.commit()
 #     return ("status" "ok, alterado com sucesso")
 
@@ -170,21 +176,27 @@ def carro_get(chassi):
     data = cur.fetchall()
     return jsonify(data)
 
-# @app.route("/cliente/<cpf>/", methods=['GET'])  # get by cpf cliente FUNCIONAL
-# def cliente(cpf):
+# @app.route("/alocacao/", methods=['POST'])  # post alocacao FUNCIONAL
+# def alocacao_post():
+#     userDetails = (request.json)
+#     dt_saida = userDetails['dt_saida']
+#     dt_entrega = userDetails['dt_entrega']
+#     cpf_fk = userDetails['cpf_fk']
+#     chassi_fk = userDetails['chassi_fk']
 #     cur = mysql.connection.cursor()
-#     cur.execute("SELECT * FROM cliente WHERE cpf = %s", (cpf,))
-#     data = cur.fetchall()
-#     return jsonify(data)
+#     cur.execute(
+#         "INSERT INTO alocacao (dt_saida, dt_entrega, cpf_fk, chassi_fk) VALUES (%s, %s, %s, %s,)", (dt_saida, dt_entrega, cpf_fk, chassi_fk))
+#     mysql.connection.commit()
+#     return ("status" "ok, Criado com sucesso")
 
-# @app.route("/cliente/", methods=['POST']) # post cliente NÃO FUNCIONAL
-# def cliente_post():
+# @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
+# def cliente_put(cpf):
 #     userDetails = (request.form)
 #     nome = userDetails['nome']
 #     endereco = userDetails['endereco']
 #     cur = mysql.connection.cursor()
 #     cur.execute(
-#         "INSERT INTO cliente (nome, endereco) VALUES (%s. %s)", (nome, endereco))
+#         "UPDATE cliente SET nome = %s, endereco = %s WHERE cpf = %s", (nome, endereco, cpf))
 #     mysql.connection.commit()
 #     return ("status" "ok, alterado com sucesso")
 
