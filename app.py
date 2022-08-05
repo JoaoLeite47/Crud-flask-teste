@@ -1,57 +1,50 @@
+import json
 from resources import *
+from service.service import ServiceTest
 
 # cliente table
 
 
 @app.route("/")  # get all cliente
 def home():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM cliente")
-    data = cur.fetchall()
-    return jsonify(data)
+    clientes = ServiceTest.selectClientes()
+    return jsonify(clientes)
 
 
 @app.route("/cliente/<cpf>/", methods=['GET'])  # get by cpf cliente FUNCIONAL
 def cliente(cpf):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM cliente WHERE cpf = %s", (cpf,))
-    data = cur.fetchall()
-    return jsonify(data)
+    cliente = ServiceTest.selectCliente(cpf)
+    return jsonify(cliente)
 
 
 @app.route("/cliente/", methods=['POST'])  # post cliente FUNCIONAL
 def cliente_post():
     userDetails = (request.json)
-    nome = userDetails['nome']
-    endereco = userDetails['endereco']
+    criarCliente = ServiceTest.criarCliente(userDetails)
+    if criarCliente == 0:
+        return jsonify({"message": "Falha na criação do cliente"}), 400
+    return jsonify({'message': 'Cliente criado com sucesso!'}), 201
+
+
+@app.route('/cliente/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def cliente_put():
+    userDetails = (request.form)
     cpf = userDetails['cpf']
-    cnh = userDetails['cnh']
-    dt_nascimento = userDetails['dt_nascimento']
-    rg = userDetails['rg']
-    cur = mysql.connection.cursor()
-    cur.execute(
-        "INSERT INTO cliente (nome, endereco, cpf, cnh, dt_nascimento, rg) VALUES (%s, %s, %s, %s, %s, %s)", (nome, endereco, cpf, cnh, dt_nascimento, rg))
-    mysql.connection.commit()
-    return ("status" "ok, Criado com sucesso")
-
-# @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
-# def cliente_put(cpf):
-#     userDetails = (request.form)
-#     nome = userDetails['nome']
-#     endereco = userDetails['endereco']
-#     cur = mysql.connection.cursor()
-#     cur.execute(
-#         "UPDATE cliente SET nome = %s, endereco = %s WHERE cpf = %s", (nome, endereco, cpf))
-#     mysql.connection.commit()
-#     return ("status" "ok, alterado com sucesso")
+    cliente = ServiceTest.selectCliente(cpf)
+    if cliente == None:
+        return jsonify({"message": "Cliente não encontrado"}), 400
+    cliente_u = ServiceTest.updateCliente(userDetails)
+    if cliente_u == 0:
+        return jsonify({"message": "Falha na atualização do cliente"}), 400
+    return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
-@app.route('/cliente/<cpf>/', methods=['DELETE'])  # delete cliente FUNCIONAL
+@app.route('/cliente/delete/<cpf>/', methods=['POST'])  # delete cliente FUNCIONAL
 def cliente_delete(cpf):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM cliente WHERE cpf = %s", (cpf,))
-    mysql.connection.commit()
-    return ("message" "ok, deletado com sucesso")
+    cliente = ServiceTest.deleteCliente(cpf)
+    if cliente == 0:
+        return jsonify({"message": "Falha na remoção do cliente"}), 400
+    return jsonify({"status": "ok, removido com sucesso"}), 201
 
 # categoria table
 
@@ -124,18 +117,19 @@ def aloc_get(id_aloc):
     data = cur.fetchall()
     return jsonify(data)
 
-# @app.route("/alocacao/", methods=['POST'])  # post alocacao  NAO FUNCIONAL
-# def alocacao_post():
-#     userDetails = (request.json)
-#     dt_saida = userDetails['dt_saida']
-#     dt_entrega = userDetails['dt_entrega']
-#     cpf_fk = userDetails['cpf_fk']
-#     chassi_fk = userDetails['chassi_fk']
-#     cur = mysql.connection.cursor()
-#     cur.execute(
-#         "INSERT INTO alocacao (dt_saida, dt_entrega, cpf_fk, chassi_fk) VALUES (%s, %s, %s, %s,)", (dt_saida, dt_entrega, cpf_fk, chassi_fk))
-#     mysql.connection.commit()
-#     return ("status" "ok, Criado com sucesso")
+
+@app.route("/alocacao/", methods=['POST'])  # post alocacao  NAO FUNCIONAL
+def alocacao_post():
+    userDetails = (request.json)
+    dt_saida = userDetails['dt_saida']
+    dt_entrega = userDetails['dt_entrega']
+    cpf_fk = userDetails['cpf_fk']
+    chassi_fk = userDetails['chassi_fk']
+    cur = mysql.connection.cursor()
+    cur.execute(
+        "INSERT INTO alocacao (dt_saida, dt_entrega, cpf_fk, chassi_fk) VALUES (%s, %s, %s, %s,)", (dt_saida, dt_entrega, cpf_fk, chassi_fk))
+    mysql.connection.commit()
+    return ("status" "ok, Criado com sucesso")
 
 # @app.route('/cliente/<cpf>/', methods=['PUT']) # put cliente NÃO FUNCIONAL
 # def cliente_put(cpf):
