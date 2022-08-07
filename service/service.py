@@ -17,9 +17,9 @@ class ServiceTest:
         results = TesteDao.criarCliente(conex[0], conex[1], userDetails)
         return results
 
-    def updateCliente(userDetails):
+    def updateCliente(cpf, userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.updateCliente(conex[0], conex[1], userDetails)
+        results = TesteDao.updateCliente(conex[0], conex[1], cpf, userDetails)
         return results
 
     def deleteCliente(cpf):

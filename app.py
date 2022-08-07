@@ -16,7 +16,7 @@ def cliente(cpf):
     return jsonify(cliente)
 
 
-@app.route("/cliente/", methods=['POST'])  # post cliente FUNCIONAL
+@app.route("/cliente/novo/", methods=['POST'])  # post cliente FUNCIONAL
 def cliente_post():
     userDetails = (request.json)
     criarCliente = ServiceTest.criarCliente(userDetails)
@@ -25,11 +25,11 @@ def cliente_post():
     return jsonify({'message': 'Cliente criado com sucesso!'}), 201
 
 
-@app.route('/cliente/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def cliente_put():
+@app.route('/cliente/update/<cpf>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def cliente_put(cpf):
     userDetails = (request.form)
     cpf = userDetails['cpf']
-    cliente = ServiceTest.selectCliente(cpf)
+    cliente = ServiceTest.selectCliente(cpf, userDetails)
     if cliente == None:
         return jsonify({"message": "Cliente não encontrado"}), 400
     cliente_u = ServiceTest.updateCliente(userDetails)
@@ -154,7 +154,7 @@ def carro_get(chassi):
     return jsonify(carro)
 
 
-@app.route("/carro/novo/", methods=['POST'])  # post alocacao FUNCIONAL
+@app.route("/carro/novo/", methods=['POST'])  # post carro FUNCIONAL
 def carro_post():
     userDetails = (request.json)
     criarCarro = ServiceTest.criarCarro(userDetails)

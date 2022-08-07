@@ -53,7 +53,7 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCliente(mycursor: object, mydb: object, userDetails: dict) -> list:
+    def updateCliente(mycursor: object, mydb: object, cpf: str, userDetails: dict) -> list:
         cpf = userDetails['cpf']
         nome = userDetails['nome']
         endereco = userDetails['endereco']
@@ -85,7 +85,7 @@ class TesteDao:
         descricao = userDetails['descricao']
         valor_diaria = userDetails['valor_diaria']
         mycursor.execute(
-            "INSERT INTO Categoria (valor_diaria, valor_diaria) VALUES (%s, %s)", (valor_diaria, descricao))
+            "INSERT INTO Categoria (valor_diaria, descricao) VALUES (%s, %s)", (valor_diaria, descricao))
         mydb.commit()
         return mycursor.rowcount
 
