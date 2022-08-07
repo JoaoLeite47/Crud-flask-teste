@@ -31,7 +31,7 @@ class ServiceTest:
         conex = TesteDao.conectar()
         results = TesteDao.selectCategorias(conex[0])
         return results
-    
+
     def selectCategoria(cod_categ):
         conex = TesteDao.conectar()
         results = TesteDao.selectCategoria(conex[0], cod_categ)
@@ -42,21 +42,22 @@ class ServiceTest:
         results = TesteDao.criarCategoria(conex[0], conex[1], userDetails)
         return results
 
-    def updateCategoria(userDetails,):
+    def updateCategoria(userDetails, cod_categ):
         conex = TesteDao.conectar()
-        results = TesteDao.updateCategoria(conex[0], conex[1], userDetails,)
+        results = TesteDao.updateCategoria(
+            conex[0], conex[1], cod_categ, userDetails)
         return results
 
     def deleteCategoria(cod_categ):
         conex = TesteDao.conectar()
         results = TesteDao.deleteCategoria(conex[0], conex[1], cod_categ)
         return results
-    
+
     def selectAlocacoes():
         conex = TesteDao.conectar()
         results = TesteDao.selectAlocacoes(conex[0])
         return results
-    
+
     def selectAlocacao(cod_aloc):
         conex = TesteDao.conectar()
         results = TesteDao.selectAlocacao(conex[0], cod_aloc)
@@ -67,9 +68,10 @@ class ServiceTest:
         results = TesteDao.criarAlocacao(conex[0], conex[1], userDetails)
         return results
 
-    def updateAlocacao(userDetails):
+    def updateAlocacao(id_aloc, userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.updateAlocacao(conex[0], conex[1], userDetails)
+        results = TesteDao.updateAlocacao(
+            conex[0], conex[1], id_aloc, userDetails)
         return results
 
     def deleteAlocacao(cod_aloc):
@@ -81,7 +83,7 @@ class ServiceTest:
         conex = TesteDao.conectar()
         results = TesteDao.selectCarros(conex[0])
         return results
-    
+
     def selectCarro(chassi):
         conex = TesteDao.conectar()
         results = TesteDao.selectCarro(conex[0], chassi)
@@ -92,11 +94,11 @@ class ServiceTest:
         results = TesteDao.criarCarro(conex[0], conex[1], userDetails)
         return results
 
-    def updateCarro(userDetails):
+    def updateCarro(chassi, userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.updateCarro(conex[0], conex[1], userDetails)
+        results = TesteDao.updateCarro(conex[0], conex[1], chassi, userDetails)
         return results
-    
+
     def deleteCarro(chassi):
         conex = TesteDao.conectar()
         results = TesteDao.deleteCarro(conex[0], conex[1], chassi)

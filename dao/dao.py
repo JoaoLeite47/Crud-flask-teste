@@ -89,7 +89,7 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCategoria(mycursor: object, mydb: object, userDetails: dict,) -> list:
+    def updateCategoria(mycursor: object, mydb: object, userDetails: dict, cod_categ: int) -> list:
         cod_categ = userDetails['cod_categ']
         descricao = userDetails['descricao']
         valor_diaria = userDetails['valor_diaria']
@@ -126,13 +126,13 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+    def updateAlocacao(mycursor: object, mydb: object, id_aloc: int, userDetails: dict) -> list:
+        id_aloc = userDetails['id_aloc']
         cpf_fk = userDetails['cpf_fk']
         chassi_fk = userDetails['chassi_fk']
         dt_saida = userDetails['dt_saida']
         dt_entrega = userDetails['dt_entrega']
-        id_aloc = userDetails['id_aloc']
-        mycursor.execute("UPDATE Alocacao SET cpf_fk = %s, chassi_fk = %s, dt_saida = %s, dt_entrega = %s, id_aloc = %s WHERE id_aloc = %s",
+        mycursor.execute("UPDATE Alocacao SET cpf_fk = %s, chassi_fk = %s, dt_saida = %s, dt_entrega = %s WHERE id_aloc = %s",
                          (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc,))
         mydb.commit()
         return mycursor.rowcount
@@ -166,13 +166,14 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCarro(mycursor: object, mydb: object, userDetails: dict) -> list:
+    def updateCarro(mycursor: object, mydb: object, chassi: str, userDetails: dict) -> list:
         chassi = userDetails['chassi']
         marca = userDetails['marca']
         modelo = userDetails['modelo']
         ano = userDetails['ano']
         cor = userDetails['cor']
         placa = userDetails['placa']
+        print(placa)
         categoria_fk = userDetails['categoria_fk']
         mycursor.execute("UPDATE Carro SET marca = %s, modelo = %s, ano = %s, cor = %s, placa = %s, categoria_fk = %s WHERE chassi = %s",
                          (marca, modelo, ano, cor, placa, categoria_fk, chassi))

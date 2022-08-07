@@ -25,15 +25,14 @@ def cliente_post():
     return jsonify({'message': 'Cliente criado com sucesso!'}), 201
 
 
-@app.route('/cliente/update/<cpf>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+@app.route('/cliente/update/<cpf>/', methods=['POST'])  # put cliente FUNCIONAL
 def cliente_put(cpf):
-    userDetails = (request.form)
-    cpf = userDetails['cpf']
-    cliente = ServiceTest.selectCliente(cpf, userDetails)
+    userDetails = (request.json)
+    cliente = ServiceTest.updateCliente(cpf, userDetails)
+    print(cliente)
     if cliente == None:
         return jsonify({"message": "Cliente não encontrado"}), 400
-    cliente_u = ServiceTest.updateCliente(userDetails)
-    if cliente_u == 0:
+    if cliente == 0:
         return jsonify({"message": "Falha na atualização do cliente"}), 400
     return jsonify({"status": "ok, alterado com sucesso"}), 201
 
@@ -71,17 +70,16 @@ def categoria_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-# @app.route('/categoria/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-# def categoria_up():
-#     userDetails = (request.form)
-#     cod_categ = userDetails['cod_categ']
-#     categoria = ServiceTest.updateCategoria(cod_categ)
-#     if categoria == None:
-#         return jsonify({"message": "Categoria não encontrada"}), 400
-#     categoria_u = ServiceTest.updateCategoria(userDetails)
-#     if categoria_u == 0:
-#         return jsonify({"message": "Falha na atualização da categoria"}), 400
-#     return jsonify("status" "ok, alterado com sucesso"), 201
+@app.route('/categoria/update/<cod_categ>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def categoria_put(cod_categ):
+    userDetails = (request.json)
+    categoria = ServiceTest.updateCategoria(cod_categ, userDetails)
+    print(categoria)
+    if categoria == None:
+        return jsonify({"message": "Cliente não encontrado"}), 400
+    if categoria == 0:
+        return jsonify({"message": "Falha na atualização da categoria "}), 400
+    return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
 # delete categoria FUNCIONAL
@@ -117,17 +115,16 @@ def alocacao_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/alocacao/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def alocacao_up():
-    userDetails = (request.form)
-    id_aloc = userDetails['id_aloc']
-    alocacao = ServiceTest.updateAlocacao(id_aloc)
-    if alocacao == None:
-        return jsonify({"message": "Alocacao não encontrada"}), 400
-    alocacao_u = ServiceTest.updateAlocacao(userDetails)
-    if alocacao_u == 0:
-        return jsonify({"message": "Falha na atualização da alocacao"}), 400
-    return jsonify({"status" "ok, alterado com sucesso"}), 201
+# @app.route('/alocacao/update/<id_aloc>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+# def alocacao_up(id_aloc):
+#     userDetails = (request.json)
+#     alocacao = ServiceTest.updateAlocacao(id_aloc, userDetails)
+#     if alocacao == None:
+#         return jsonify({"message": "Alocacao não encontrada"}), 400
+#     # alocacao_u = ServiceTest.updateAlocacao(userDetails)
+#     if alocacao == 0:
+#         return jsonify({"message": "Falha na atualização da alocacao"}), 400
+#     return jsonify({"status" "ok, alterado com sucesso"}), 201
 
 
 # delete alocacao FUNCIONAL
@@ -163,15 +160,13 @@ def carro_post():
     return jsonify("status" "ok, Alterado com sucesso"), 201
 
 
-@app.route('/carro/update/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def carro_up():
-    userDetails = (request.form)
-    chassi = userDetails['chassi']
-    carro = ServiceTest.updateCarro(chassi)
+@app.route('/carro/update/<chassi>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def carro_up(chassi):
+    userDetails = (request.json)
+    carro = ServiceTest.updateCarro(chassi, userDetails)
     if carro == None:
         return jsonify({"message": "Carro não encontrado"}), 400
-    carro_u = ServiceTest.updateCarro(userDetails)
-    if carro_u == 0:
+    if carro == 0:
         return jsonify({"message": "Falha na atualização do carro"}), 400
     return jsonify({"status" "ok, alterado com sucesso"}), 201
 
