@@ -1,4 +1,4 @@
-from resources import *
+# from resources import *
 
 import mysql.connector
 from mysql.connector import Error
@@ -84,13 +84,15 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCategoria(mycursor: object, mydb: object, userDetails: dict, cod_categ: int) -> list:
-        cod_categ = userDetails['cod_categ']
+    def updateCategoria(mycursor: object, mydb: object, userDetails: dict) -> list:
+        cod_categ = int(userDetails['cod_categ'])
         descricao = userDetails['descricao']
         valor_diaria = userDetails['valor_diaria']
+        sql = "UPDATE Categoria SET descricao ='" + \
+            str(descricao)+"', valor_diaria ='"+str(valor_diaria) + \
+            "' WHERE cod_categ ='"+str(cod_categ)+"'"
         mycursor.execute(
-            "UPDATE Categoria SET descricao = %s, valor_diaria = %s WHERE cod_categ = %s", (descricao, valor_diaria, cod_categ))
-        mydb.commit()
+            sql)
         return mycursor.rowcount
 
     def deleteCategoria(mycursor: object, mydb: object, cod_categ: int) -> list:
@@ -121,16 +123,16 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateAlocacao(mycursor: object, mydb: object, id_aloc: int, userDetails: dict) -> list:
-        id_aloc = userDetails['id_aloc']
-        cpf_fk = userDetails['cpf_fk']
-        chassi_fk = userDetails['chassi_fk']
-        dt_saida = userDetails['dt_saida']
-        dt_entrega = userDetails['dt_entrega']
-        mycursor.execute("UPDATE Alocacao SET cpf_fk = %s, chassi_fk = %s, dt_saida = %s, dt_entrega = %s WHERE id_aloc = %s",
-                         (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc,))
-        mydb.commit()
-        return mycursor.rowcount
+    # def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+    #     id_aloc = userDetails['id_aloc']
+    #     cpf_fk = userDetails['cpf_fk']
+    #     chassi_fk = userDetails['chassi_fk']
+    #     dt_saida = userDetails['dt_saida']
+    #     dt_entrega = userDetails['dt_entrega']
+    #     sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk = '"+str(chassi_fk)+"', dt_saida = '"+str(
+    #         dt_saida)+"', dt_entrega = '"+str(dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
+    #     mycursor.execute(sql)
+    #     return mycursor.rowcount
 
     def deleteAlocacao(mycursor: object, mydb: object, cod_alocacao: int) -> list:
         mycursor.execute(
@@ -161,21 +163,33 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCarro(mycursor: object, mydb: object, chassi: str, userDetails: dict) -> list:
+    def updateCarro(mycursor: object, mydb: object, userDetails: dict) -> list:
         chassi = userDetails['chassi']
         marca = userDetails['marca']
-        modelo = userDetails['modelo']
-        ano = userDetails['ano']
+        modelo = int(userDetails['modelo'])
+        ano = int(userDetails['ano'])
         cor = userDetails['cor']
         placa = userDetails['placa']
-        print(placa)
-        categoria_fk = userDetails['categoria_fk']
-        mycursor.execute("UPDATE Carro SET marca = %s, modelo = %s, ano = %s, cor = %s, placa = %s, categoria_fk = %s WHERE chassi = %s",
-                         (marca, modelo, ano, cor, placa, categoria_fk, chassi))
-        mydb.commit()
+        categoria_fk = int(userDetails['categoria_fk'])
+        sql = "UPDATE Carro SET marca = '"+str(marca)+"', modelo ='"+str(modelo)+"', ano = '"+str(ano)+"', cor = '"+str(
+            cor)+"', placa = '"+str(placa)+"', categoria_fk = '"+str(categoria_fk)+"' WHERE chassi = '"+str(chassi)+"'"
+        mycursor.execute(sql)
         return mycursor.rowcount
 
     def deleteCarro(mycursor: object, mydb: object, chassi: str) -> list:
         mycursor.execute("DELETE FROM Carro WHERE chassi = %s", (chassi,))
         mydb.commit()
         return mycursor.rowcount
+
+
+# conex = TesteDao.conectar()
+# categoria_user_details = {
+#     "chassi": "456asd89fd",
+#     "cor": "Roxa",
+#     "modelo": 2015,
+#     "marca": "Honda",
+#     "ano": 2015,
+#     "placa": "UIO4585",
+#     "categoria_fk": 4
+# }
+# TesteDao.updateCarro(conex[0], conex[1], categoria_user_details)

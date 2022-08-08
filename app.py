@@ -70,10 +70,10 @@ def categoria_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/categoria/update/<cod_categ>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def categoria_put(cod_categ):
+@app.route('/categoria/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def categoria_put():
     userDetails = (request.json)
-    categoria = ServiceTest.updateCategoria(cod_categ, userDetails)
+    categoria = ServiceTest.updateCategoria(userDetails)
     print(categoria)
     if categoria == None:
         return jsonify({"message": "Cliente não encontrado"}), 400
@@ -115,16 +115,16 @@ def alocacao_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-# @app.route('/alocacao/update/<id_aloc>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-# def alocacao_up(id_aloc):
-#     userDetails = (request.json)
-#     alocacao = ServiceTest.updateAlocacao(id_aloc, userDetails)
-#     if alocacao == None:
-#         return jsonify({"message": "Alocacao não encontrada"}), 400
-#     # alocacao_u = ServiceTest.updateAlocacao(userDetails)
-#     if alocacao == 0:
-#         return jsonify({"message": "Falha na atualização da alocacao"}), 400
-#     return jsonify({"status" "ok, alterado com sucesso"}), 201
+@app.route('/alocacao/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def alocacao_up():
+    userDetails = (request.json)
+    alocacao = ServiceTest.updateAlocacao(userDetails)
+    if alocacao == None:
+        return jsonify({"message": "Alocacao não encontrada"}), 400
+    # alocacao_u = ServiceTest.updateAlocacao(userDetails)
+    if alocacao == 0:
+        return jsonify({"message": "Falha na atualização da alocacao"}), 400
+    return jsonify({"status" "ok, alterado com sucesso"}), 201
 
 
 # delete alocacao FUNCIONAL
@@ -160,15 +160,15 @@ def carro_post():
     return jsonify("status" "ok, Alterado com sucesso"), 201
 
 
-@app.route('/carro/update/<chassi>/', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def carro_up(chassi):
+@app.route('/carro/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
+def carro_up():
     userDetails = (request.json)
-    carro = ServiceTest.updateCarro(chassi, userDetails)
+    carro = ServiceTest.updateCarro(userDetails)
     if carro == None:
         return jsonify({"message": "Carro não encontrado"}), 400
     if carro == 0:
         return jsonify({"message": "Falha na atualização do carro"}), 400
-    return jsonify({"status" "ok, alterado com sucesso"}), 201
+    return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
 @app.route('/carro/<chassi>/', methods=['DELETE'])  # delete carro FUNCIONAL
