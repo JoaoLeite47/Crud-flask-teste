@@ -31,7 +31,8 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectCliente(mycursor: object, cpf: str) -> list:
+    def selectCliente(mycursor: object, userDetails: dict) -> list:
+        cpf = userDetails['cpf']
         mycursor.execute("SELECT * FROM Cliente WHERE cpf = %s", (cpf,))
         myresult = mycursor.fetchone()
         return myresult
@@ -70,7 +71,8 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectCategoria(mycursor: object, cod_categ: int) -> list:
+    def selectCategoria(mycursor: object, userDetails: dict) -> list:
+        cod_categ = userDetails['cod_categ']
         mycursor.execute(
             "SELECT * FROM Categoria WHERE cod_categ = %s", (cod_categ,))
         myresult = mycursor.fetchone()
@@ -106,9 +108,10 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectAlocacao(mycursor: object, cod_alocacao: int) -> list:
+    def selectAlocacao(mycursor: object, userDetails: dict) -> list:
+        id_aloc = userDetails['id_aloc']
         mycursor.execute(
-            "SELECT * FROM Alocacao WHERE cod_alocacao = %s", (cod_alocacao,))
+            "SELECT * FROM Alocacao WHERE id_aloc = %s", (id_aloc,))
         myresult = mycursor.fetchone()
         return myresult
 
@@ -123,16 +126,16 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
-        cpf_fk = userDetails['cpf_fk']
-        chassi_fk = userDetails['chassi_fk']
-        dt_saida = int(userDetails['dt_saida'])
-        dt_entrega = int(userDetails['dt_entrega'])
-        id_aloc = int(userDetails['id_aloc'])
-        sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk ='"+str(chassi_fk)+"', dt_saida = '"+str(dt_saida)+"', dt_entrega = '"+str(
-            dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
-        mycursor.execute(sql)
-        return mycursor.rowcount
+    # def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+    #     cpf_fk = userDetails['cpf_fk']
+    #     chassi_fk = userDetails['chassi_fk']
+    #     dt_saida = int(userDetails['dt_saida'])
+    #     dt_entrega = int(userDetails['dt_entrega'])
+    #     id_aloc = int(userDetails['id_aloc'])
+    #     sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk ='"+str(chassi_fk)+"', dt_saida = '"+str(dt_saida)+"', dt_entrega = '"+str(
+    #         dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
+    #     mycursor.execute(sql)
+    #     return mycursor.rowcount
 
     def deleteAlocacao(mycursor: object, mydb: object, cod_alocacao: int) -> list:
         mycursor.execute(
@@ -145,7 +148,8 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectCarro(mycursor: object, chassi: str) -> list:
+    def selectCarro(mycursor: object, userDetails: dict) -> list:
+        chassi = userDetails['chassi']
         mycursor.execute("SELECT * FROM Carro WHERE chassi = %s", (chassi,))
         myresult = mycursor.fetchone()
         return myresult

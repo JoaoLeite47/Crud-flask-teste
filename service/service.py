@@ -12,9 +12,9 @@ class ServiceTest:
             result_total.append(cliente)
         return result_total
 
-    def selectCliente(cpf):
+    def selectCliente(userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.selectCliente(conex[0], cpf)
+        results = TesteDao.selectCliente(conex[0], userDetails)
         return results
 
     def criarCliente(userDetails):
@@ -42,9 +42,9 @@ class ServiceTest:
         result_total.append(categoria)
         return result_total
 
-    def selectCategoria(cod_categ):
+    def selectCategoria(userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.selectCategoria(conex[0], cod_categ)
+        results = TesteDao.selectCategoria(conex[0], userDetails)
         return results
 
     def criarCategoria(userDetails):
@@ -73,9 +73,9 @@ class ServiceTest:
             result_total.append(alocacao)
         return result_total
 
-    def selectAlocacao(cod_aloc):
+    def selectAlocacao(userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.selectAlocacao(conex[0], cod_aloc)
+        results = TesteDao.selectAlocacao(conex[0], userDetails)
         return results
 
     def criarAlocacao(userDetails):
@@ -104,9 +104,9 @@ class ServiceTest:
             result_total.append(carros)
         return result_total
 
-    def selectCarro(chassi):
+    def selectCarro(userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.selectCarro(conex[0], chassi)
+        results = TesteDao.selectCarro(conex[0], userDetails)
         return results
 
     def criarCarro(userDetails):

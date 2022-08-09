@@ -4,15 +4,16 @@ from service.service import ServiceTest
 # cliente table
 
 
-@app.route("/")  # get all cliente
+@app.route("/clientes")  # get all cliente
 def home():
     clientes = ServiceTest.selectClientes()
     return jsonify(clientes)
 
 
-@app.route("/cliente/<cpf>/", methods=['GET'])  # get by cpf cliente FUNCIONAL
-def cliente(cpf):
-    cliente = ServiceTest.selectCliente(cpf)
+@app.route("/cliente", methods=['GET'])  # get by cpf cliente FUNCIONAL
+def cliente():
+    userDetails = (request.json)
+    cliente = ServiceTest.selectCliente(userDetails)
     return jsonify(cliente)
 
 
@@ -47,16 +48,17 @@ def cliente_delete(cpf):
 # categoria table
 
 
-@app.route("/categoria")  # get all categoria
+@app.route("/categorias")  # get all categoria
 def home_cat():
     categoria = ServiceTest.selectCategorias()
     return jsonify(categoria)
 
 
 # get by cod_categ categoria FUNCIONAL
-@app.route("/categoria/<cod_categ>/", methods=['GET'])
-def cat_get(cod_categ):
-    categoria = ServiceTest.selectCategoria(cod_categ)
+@app.route("/categoria", methods=['GET'])
+def cat_get():
+    userDetails = (request.json)
+    categoria = ServiceTest.selectCategoria(userDetails)
     return jsonify(categoria)
 
 
@@ -91,16 +93,17 @@ def cat_delete(cod_categ):
 # alocação table
 
 
-@app.route("/alocacao")  # get all alocacao
+@app.route("/alocacoes")  # get all alocacao
 def home_alocacao():
     alocacoes = ServiceTest.selectAlocacoes()
     return jsonify(alocacoes)
 
 
 # get by id_aloc alocacao FUNCIONAL
-@app.route("/alocacao/<id_aloc>/", methods=['GET'])
-def aloc_get(id_aloc):
-    alocacao = ServiceTest.selectAlocacao(id_aloc)
+@app.route("/alocacao", methods=['GET'])
+def aloc_get():
+    userDetails = (request.json)
+    alocacao = ServiceTest.selectAlocacao(userDetails)
     return jsonify(alocacao)
 
 
@@ -137,16 +140,17 @@ def alocacao_delete(id_aloc):
 # carro table
 
 
-@app.route("/carro")  # get all carros
+@app.route("/carros")  # get all carros
 def home_carro():
     carros = ServiceTest.selectCarros()
     return jsonify(carros)
 
 
 # get by chassi carro FUNCIONAL
-@app.route("/carro/<chassi>/", methods=['GET'])
-def carro_get(chassi):
-    carro = ServiceTest.selectCarro(chassi)
+@app.route("/carro", methods=['GET'])
+def carro_get():
+    userDetails = (request.json)
+    carro = ServiceTest.selectCarro(userDetails)
     return jsonify(carro)
 
 
