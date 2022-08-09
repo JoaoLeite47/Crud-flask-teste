@@ -1,23 +1,21 @@
 from resources import *
 from service.service import ServiceTest
 
-# cliente table
 
-
-@app.route("/clientes")  # get all cliente
+@app.route("/clientes")
 def home():
     clientes = ServiceTest.selectClientes()
     return jsonify(clientes)
 
 
-@app.route("/cliente", methods=['GET'])  # get by cpf cliente FUNCIONAL
+@app.route("/cliente", methods=['GET'])
 def cliente():
     userDetails = (request.json)
     cliente = ServiceTest.selectCliente(userDetails)
     return jsonify(cliente)
 
 
-@app.route("/cliente/novo/", methods=['POST'])  # post cliente FUNCIONAL
+@app.route("/cliente/novo", methods=['POST'])
 def cliente_post():
     userDetails = (request.json)
     criarCliente = ServiceTest.criarCliente(userDetails)
@@ -26,7 +24,7 @@ def cliente_post():
     return jsonify({'message': 'Cliente criado com sucesso!'}), 201
 
 
-@app.route('/cliente/update/<cpf>/', methods=['POST'])  # put cliente FUNCIONAL
+@app.route('/cliente/update/<cpf>', methods=['POST'])
 def cliente_put(cpf):
     userDetails = (request.json)
     cliente = ServiceTest.updateCliente(cpf, userDetails)
@@ -37,24 +35,20 @@ def cliente_put(cpf):
     return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
-# delete cliente FUNCIONAL
-@app.route('/cliente/delete/<cpf>/', methods=['GET'])
+@app.route('/cliente/delete/<cpf>', methods=['GET'])
 def cliente_delete(cpf):
     cliente = ServiceTest.deleteCliente(cpf)
     if cliente == 0:
         return jsonify({"message": "Falha na remoção do cliente"}), 400
     return jsonify({"status": "ok, removido com sucesso"}), 201
 
-# categoria table
 
-
-@app.route("/categorias")  # get all categoria
+@app.route("/categorias")
 def home_cat():
     categoria = ServiceTest.selectCategorias()
     return jsonify(categoria)
 
 
-# get by cod_categ categoria FUNCIONAL
 @app.route("/categoria", methods=['GET'])
 def cat_get():
     userDetails = (request.json)
@@ -62,7 +56,7 @@ def cat_get():
     return jsonify(categoria)
 
 
-@app.route("/categoria/novo/", methods=['POST'])  # post categoria FUNCIONAL
+@app.route("/categoria/novo", methods=['POST'])
 def categoria_post():
     userDetails = (request.json)
     criarCategoria = ServiceTest.criarCategoria(userDetails)
@@ -71,7 +65,7 @@ def categoria_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/categoria/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
+@app.route('/categoria/update', methods=['POST'])
 def categoria_put():
     userDetails = (request.json)
     categoria = ServiceTest.updateCategoria(userDetails)
@@ -82,24 +76,20 @@ def categoria_put():
     return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
-# delete categoria FUNCIONAL
-@app.route('/categoria/delete/<cod_categ>/', methods=['GET'])
+@app.route('/categoria/delete/<cod_categ>', methods=['GET'])
 def categoria_delete(cod_categ):
     categoria = ServiceTest.deleteCategoria(cod_categ)
     if categoria == 0:
         return jsonify({"message": "Falha na remoção da categoria"}), 400
     return jsonify({"status": "ok, removido com sucesso"}), 201
 
-# alocação table
 
-
-@app.route("/alocacoes")  # get all alocacao
+@app.route("/alocacoes")
 def home_alocacao():
     alocacoes = ServiceTest.selectAlocacoes()
     return jsonify(alocacoes)
 
 
-# get by id_aloc alocacao FUNCIONAL
 @app.route("/alocacao", methods=['GET'])
 def aloc_get():
     userDetails = (request.json)
@@ -107,14 +97,13 @@ def aloc_get():
     return jsonify(alocacao)
 
 
-@app.route("/alocacao/novo/", methods=['POST'])  # post alocacao  NAO FUNCIONAL
+@app.route("/alocacao/novo", methods=['POST'])
 def alocacao_post():
     userDetails = (request.json)
     criarAlocacao = ServiceTest.criarAlocacao(userDetails)
     if criarAlocacao == 0:
         return jsonify({"message": "Falha na criação da alocacao"}), 400
     return jsonify("status" "ok, Criado com sucesso"), 201
-
 
 # @app.route('/alocacao/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
 # def alocacao_up():
@@ -129,24 +118,20 @@ def alocacao_post():
 #     return jsonify({"status" "ok, alterado com sucesso"}), 201
 
 
-# delete alocacao FUNCIONAL
-@app.route('/alocacao/delete/<id_aloc>/', methods=['GET'])
+@app.route('/alocacao/delete/<id_aloc>', methods=['GET'])
 def alocacao_delete(id_aloc):
     cliente = ServiceTest.deleteAlocacao(id_aloc)
     if cliente == 0:
         return jsonify({"message": "Falha na remoção da Alocação"}), 400
     return jsonify({"status": "ok, removido com sucesso"}), 201
 
-# carro table
 
-
-@app.route("/carros")  # get all carros
+@app.route("/carros")
 def home_carro():
     carros = ServiceTest.selectCarros()
     return jsonify(carros)
 
 
-# get by chassi carro FUNCIONAL
 @app.route("/carro", methods=['GET'])
 def carro_get():
     userDetails = (request.json)
@@ -154,7 +139,7 @@ def carro_get():
     return jsonify(carro)
 
 
-@app.route("/carro/novo/", methods=['POST'])  # post carro FUNCIONAL
+@app.route("/carro/novo", methods=['POST'])
 def carro_post():
     userDetails = (request.json)
     criarCarro = ServiceTest.criarCarro(userDetails)
@@ -163,7 +148,7 @@ def carro_post():
     return jsonify("status" "ok, Alterado com sucesso"), 201
 
 
-@app.route('/carro/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
+@app.route('/carro/update', methods=['POST'])
 def carro_up():
     userDetails = (request.json)
     carro = ServiceTest.updateCarro(userDetails)
@@ -174,7 +159,7 @@ def carro_up():
     return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
-@app.route('/carro/delete/<chassi>/', methods=['GET'])
+@app.route('/carro/delete/<chassi>', methods=['GET'])
 def carro_delete(chassi):
     carro = ServiceTest.deleteCarro(chassi)
     if carro == 0:
