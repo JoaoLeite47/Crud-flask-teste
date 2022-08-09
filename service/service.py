@@ -15,7 +15,13 @@ class ServiceTest:
     def selectCliente(userDetails):
         conex = TesteDao.conectar()
         results = TesteDao.selectCliente(conex[0], userDetails)
-        return results
+        print(results)
+        result_total = []
+        for cliente in results:
+            cliente = {'rg': cliente[0], 'dt_nascimento': cliente[1], 'cnh': cliente[2],
+                       'nome': cliente[3], 'endereco': cliente[4], 'cpf': cliente[5]}
+            result_total.append(cliente)
+        return result_total
 
     def criarCliente(userDetails):
         conex = TesteDao.conectar()

@@ -1,5 +1,4 @@
 # from resources import *
-
 import mysql.connector
 from mysql.connector import Error
 from datetime import datetime
@@ -33,8 +32,8 @@ class TesteDao:
 
     def selectCliente(mycursor: object, userDetails: dict) -> list:
         cpf = userDetails['cpf']
-        mycursor.execute("SELECT * FROM Cliente WHERE cpf = %s", (cpf,))
-        myresult = mycursor.fetchone()
+        mycursor.execute("SELECT * FROM Cliente WHERE cpf = '"+str(cpf)+"'")
+        myresult = mycursor.fetchall()
         return myresult
 
     def criarCliente(mycursor: object, mydb: object, userDetails: dict) -> list:
