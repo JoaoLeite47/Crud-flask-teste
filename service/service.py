@@ -8,7 +8,7 @@ class ServiceTest:
         result_total = []
         for cliente in results:
             cliente = {'rg': cliente[0], 'dt_nascimento': cliente[1], 'cnh': cliente[2],
-                   'nome': cliente[3], 'endereco': cliente[4], 'cpf': cliente[5]}
+                       'nome': cliente[3], 'endereco': cliente[4], 'cpf': cliente[5]}
             result_total.append(cliente)
         return result_total
 
@@ -35,7 +35,12 @@ class ServiceTest:
     def selectCategorias():
         conex = TesteDao.conectar()
         results = TesteDao.selectCategorias(conex[0])
-        return results
+        result_total = []
+        for categoria in results:
+            categoria = {
+                'cod_categ': categoria[0], 'descricao': categoria[1], 'valor_diaria': categoria[2]}
+        result_total.append(categoria)
+        return result_total
 
     def selectCategoria(cod_categ):
         conex = TesteDao.conectar()
@@ -61,7 +66,12 @@ class ServiceTest:
     def selectAlocacoes():
         conex = TesteDao.conectar()
         results = TesteDao.selectAlocacoes(conex[0])
-        return results
+        result_total = []
+        for alocacao in results:
+            alocacao = {'cpf_fk': alocacao[0], 'chassi_fk': alocacao[1], 'dt_saida': alocacao[2],
+                        'dt_entrega': alocacao[3], 'id_aloc': alocacao[4]}
+            result_total.append(alocacao)
+        return result_total
 
     def selectAlocacao(cod_aloc):
         conex = TesteDao.conectar()
@@ -87,7 +97,12 @@ class ServiceTest:
     def selectCarros():
         conex = TesteDao.conectar()
         results = TesteDao.selectCarros(conex[0])
-        return results
+        result_total = []
+        for carros in results:
+            carros = {'chassi': carros[0], 'cor': carros[1], 'modelo': carros[2],
+                      'marca': carros[3], 'placa': carros[4], 'ano': carros[5], 'categoria_fk': carros[6]}
+            result_total.append(carros)
+        return result_total
 
     def selectCarro(chassi):
         conex = TesteDao.conectar()
@@ -101,7 +116,7 @@ class ServiceTest:
 
     def updateCarro(userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.updateCarro(conex[0], conex[1],userDetails)
+        results = TesteDao.updateCarro(conex[0], conex[1], userDetails)
         return results
 
     def deleteCarro(chassi):

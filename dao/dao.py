@@ -123,16 +123,16 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    # def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
-    #     id_aloc = userDetails['id_aloc']
-    #     cpf_fk = userDetails['cpf_fk']
-    #     chassi_fk = userDetails['chassi_fk']
-    #     dt_saida = userDetails['dt_saida']
-    #     dt_entrega = userDetails['dt_entrega']
-    #     sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk = '"+str(chassi_fk)+"', dt_saida = '"+str(
-    #         dt_saida)+"', dt_entrega = '"+str(dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
-    #     mycursor.execute(sql)
-    #     return mycursor.rowcount
+    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+        cpf_fk = userDetails['cpf_fk']
+        chassi_fk = userDetails['chassi_fk']
+        dt_saida = int(userDetails['dt_saida'])
+        dt_entrega = int(userDetails['dt_entrega'])
+        id_aloc = int(userDetails['id_aloc'])
+        sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk ='"+str(chassi_fk)+"', dt_saida = '"+str(dt_saida)+"', dt_entrega = '"+str(
+            dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
+        mycursor.execute(sql)
+        return mycursor.rowcount
 
     def deleteAlocacao(mycursor: object, mydb: object, cod_alocacao: int) -> list:
         mycursor.execute(
@@ -183,13 +183,11 @@ class TesteDao:
 
 
 # conex = TesteDao.conectar()
-# categoria_user_details = {
-#     "chassi": "456asd89fd",
-#     "cor": "Roxa",
-#     "modelo": 2015,
-#     "marca": "Honda",
-#     "ano": 2015,
-#     "placa": "UIO4585",
-#     "categoria_fk": 4
+# alocacao_user_datails = {
+#     "cpf_fk": "123456789",
+#     "chassi_fk": "123456789",
+#     "dt_saida": 20200101,
+#     "dt_entrega": 20200101,
+#     "id_aloc": 1
 # }
-# TesteDao.updateCarro(conex[0], conex[1], categoria_user_details)
+# TesteDao.updateAlocacao(conex[0], conex[1], alocacao_user_datails)

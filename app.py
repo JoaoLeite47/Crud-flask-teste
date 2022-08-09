@@ -29,7 +29,6 @@ def cliente_post():
 def cliente_put(cpf):
     userDetails = (request.json)
     cliente = ServiceTest.updateCliente(cpf, userDetails)
-    print(cliente)
     if cliente == None:
         return jsonify({"message": "Cliente não encontrado"}), 400
     if cliente == 0:
@@ -74,7 +73,6 @@ def categoria_post():
 def categoria_put():
     userDetails = (request.json)
     categoria = ServiceTest.updateCategoria(userDetails)
-    print(categoria)
     if categoria == None:
         return jsonify({"message": "Cliente não encontrado"}), 400
     if categoria == 0:
@@ -119,6 +117,7 @@ def alocacao_post():
 def alocacao_up():
     userDetails = (request.json)
     alocacao = ServiceTest.updateAlocacao(userDetails)
+    print(alocacao)
     if alocacao == None:
         return jsonify({"message": "Alocacao não encontrada"}), 400
     # alocacao_u = ServiceTest.updateAlocacao(userDetails)
