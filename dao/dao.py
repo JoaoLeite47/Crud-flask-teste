@@ -98,8 +98,7 @@ class TesteDao:
         return mycursor.rowcount
 
     def deleteCategoria(mycursor: object, mydb: object, cod_categ: int) -> list:
-        mycursor.execute(
-            "DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
+        mycursor.execute("DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
         mydb.commit()
         return mycursor.rowcount
 
@@ -137,9 +136,8 @@ class TesteDao:
     #     mycursor.execute(sql)
     #     return mycursor.rowcount
 
-    def deleteAlocacao(mycursor: object, mydb: object, cod_alocacao: int) -> list:
-        mycursor.execute(
-            "DELETE FROM Alocacao WHERE cod_alocacao = %s", (cod_alocacao,))
+    def deleteAlocacao(mycursor: object, mydb: object, id_aloc: int) -> list:
+        mycursor.execute("DELETE FROM Alocacao WHERE id_aloc = %s", (id_aloc,))
         mydb.commit()
         return mycursor.rowcount
 

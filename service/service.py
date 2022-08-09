@@ -89,9 +89,9 @@ class ServiceTest:
             conex[0], conex[1], userDetails)
         return results
 
-    def deleteAlocacao(cod_aloc):
+    def deleteAlocacao(id_aloc):
         conex = TesteDao.conectar()
-        results = TesteDao.deleteAlocacao(conex[0], conex[1], cod_aloc)
+        results = TesteDao.deleteAlocacao(conex[0], conex[1], id_aloc)
         return results
 
     def selectCarros():

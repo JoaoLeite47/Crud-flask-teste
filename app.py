@@ -38,7 +38,7 @@ def cliente_put(cpf):
 
 
 # delete cliente FUNCIONAL
-@app.route('/cliente/delete/<cpf>/', methods=['POST'])
+@app.route('/cliente/delete/<cpf>/', methods=['GET'])
 def cliente_delete(cpf):
     cliente = ServiceTest.deleteCliente(cpf)
     if cliente == 0:
@@ -83,12 +83,12 @@ def categoria_put():
 
 
 # delete categoria FUNCIONAL
-@app.route("/categoria/delete/<cod_categ>/", methods=['DELETE'])
-def cat_delete(cod_categ):
+@app.route('/categoria/delete/<cod_categ>/', methods=['GET'])
+def categoria_delete(cod_categ):
     categoria = ServiceTest.deleteCategoria(cod_categ)
     if categoria == 0:
         return jsonify({"message": "Falha na remoção da categoria"}), 400
-    return jsonify({"message" "ok, deletado com sucesso"}), 201
+    return jsonify({"status": "ok, removido com sucesso"}), 201
 
 # alocação table
 
@@ -116,26 +116,26 @@ def alocacao_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/alocacao/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
-def alocacao_up():
-    userDetails = (request.json)
-    alocacao = ServiceTest.updateAlocacao(userDetails)
-    print(alocacao)
-    if alocacao == None:
-        return jsonify({"message": "Alocacao não encontrada"}), 400
-    # alocacao_u = ServiceTest.updateAlocacao(userDetails)
-    if alocacao == 0:
-        return jsonify({"message": "Falha na atualização da alocacao"}), 400
-    return jsonify({"status" "ok, alterado com sucesso"}), 201
+# @app.route('/alocacao/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
+# def alocacao_up():
+#     userDetails = (request.json)
+#     alocacao = ServiceTest.updateAlocacao(userDetails)
+#     print(alocacao)
+#     if alocacao == None:
+#         return jsonify({"message": "Alocacao não encontrada"}), 400
+#     # alocacao_u = ServiceTest.updateAlocacao(userDetails)
+#     if alocacao == 0:
+#         return jsonify({"message": "Falha na atualização da alocacao"}), 400
+#     return jsonify({"status" "ok, alterado com sucesso"}), 201
 
 
 # delete alocacao FUNCIONAL
-@app.route('/alocacao/delete/<id_aloc>/', methods=['DELETE'])
+@app.route('/alocacao/delete/<id_aloc>/', methods=['GET'])
 def alocacao_delete(id_aloc):
-    alocacao = ServiceTest.deleteAlocacao(id_aloc)
-    if alocacao == 0:
-        return jsonify({"message": "Falha na remoção da alocacao"}), 400
-    return jsonify({"message" "ok, deletado com sucesso"}), 201
+    cliente = ServiceTest.deleteAlocacao(id_aloc)
+    if cliente == 0:
+        return jsonify({"message": "Falha na remoção da Alocação"}), 400
+    return jsonify({"status": "ok, removido com sucesso"}), 201
 
 # carro table
 
@@ -174,12 +174,12 @@ def carro_up():
     return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
-@app.route('/carro/<chassi>/', methods=['DELETE'])  # delete carro FUNCIONAL
+@app.route('/carro/delete/<chassi>/', methods=['GET'])
 def carro_delete(chassi):
     carro = ServiceTest.deleteCarro(chassi)
     if carro == 0:
         return jsonify({"message": "Falha na remoção do carro"}), 400
-    return jsonify({"message" "ok, deletado com sucesso"}), 201
+    return jsonify({"status": "ok, removido com sucesso"}), 201
 
 
 if __name__ == '__main__':
