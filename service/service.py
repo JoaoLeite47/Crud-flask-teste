@@ -85,8 +85,7 @@ class ServiceTest:
 
     def updateAlocacao(userDetails):
         conex = TesteDao.conectar()
-        results = TesteDao.updateAlocacao(
-            conex[0], conex[1], userDetails)
+        results = TesteDao.updateAlocacao(conex[0], conex[1], userDetails)
         return results
 
     def deleteAlocacao(id_aloc):

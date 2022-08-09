@@ -105,17 +105,15 @@ def alocacao_post():
         return jsonify({"message": "Falha na criação da alocacao"}), 400
     return jsonify("status" "ok, Criado com sucesso"), 201
 
-# @app.route('/alocacao/update', methods=['POST'])  # put cliente NÃO FUNCIONAL
-# def alocacao_up():
-#     userDetails = (request.json)
-#     alocacao = ServiceTest.updateAlocacao(userDetails)
-#     print(alocacao)
-#     if alocacao == None:
-#         return jsonify({"message": "Alocacao não encontrada"}), 400
-#     # alocacao_u = ServiceTest.updateAlocacao(userDetails)
-#     if alocacao == 0:
-#         return jsonify({"message": "Falha na atualização da alocacao"}), 400
-#     return jsonify({"status" "ok, alterado com sucesso"}), 201
+@app.route('/alocacao/update', methods=['POST'])
+def alocacao_up():
+    userDetails = (request.json)
+    alocacao = ServiceTest.updateAlocacao(userDetails)
+    if alocacao == None:
+        return jsonify({"message": "Alocação não encontrada"}), 400
+    if alocacao == 0:
+        return jsonify({"message": "Falha na atualização da alocação"}), 400
+    return jsonify({"status": "ok, alterado com sucesso"}), 201
 
 
 @app.route('/alocacao/delete/<id_aloc>', methods=['GET'])

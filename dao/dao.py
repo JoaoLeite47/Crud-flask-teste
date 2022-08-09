@@ -98,7 +98,8 @@ class TesteDao:
         return mycursor.rowcount
 
     def deleteCategoria(mycursor: object, mydb: object, cod_categ: int) -> list:
-        mycursor.execute("DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
+        mycursor.execute(
+            "DELETE FROM Categoria WHERE cod_categ = %s", (cod_categ,))
         mydb.commit()
         return mycursor.rowcount
 
@@ -125,16 +126,16 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    # def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
-    #     cpf_fk = userDetails['cpf_fk']
-    #     chassi_fk = userDetails['chassi_fk']
-    #     dt_saida = int(userDetails['dt_saida'])
-    #     dt_entrega = int(userDetails['dt_entrega'])
-    #     id_aloc = int(userDetails['id_aloc'])
-    #     sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk ='"+str(chassi_fk)+"', dt_saida = '"+str(dt_saida)+"', dt_entrega = '"+str(
-    #         dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
-    #     mycursor.execute(sql)
-    #     return mycursor.rowcount
+    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+        cpf_fk = userDetails['cpf_fk']
+        chassi_fk = userDetails['chassi_fk']
+        dt_saida = int(userDetails['dt_saida'])
+        dt_entrega = int(userDetails['dt_entrega'])
+        id_aloc = userDetails['id_aloc']
+        sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk ='"+str(chassi_fk)+"', dt_saida = '"+str(
+            dt_saida)+"', dt_entrega = '"+str(dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
+        mycursor.execute(sql)
+        return mycursor.rowcount
 
     def deleteAlocacao(mycursor: object, mydb: object, id_aloc: int) -> list:
         mycursor.execute("DELETE FROM Alocacao WHERE id_aloc = %s", (id_aloc,))
