@@ -12,6 +12,8 @@ def home():
 def cliente():
     userDetails = (request.json)
     cliente = ServiceTest.selectCliente(userDetails)
+    if cliente == []:
+        return jsonify({"message": "Cliente não encontrado"}), 400
     return jsonify(cliente)
 
 
@@ -53,6 +55,8 @@ def home_cat():
 def cat_get():
     userDetails = (request.json)
     categoria = ServiceTest.selectCategoria(userDetails)
+    if categoria == []:
+        return jsonify({"message": "Categoria não encontrada"}), 400
     return jsonify(categoria)
 
 
@@ -94,6 +98,8 @@ def home_alocacao():
 def aloc_get():
     userDetails = (request.json)
     alocacao = ServiceTest.selectAlocacao(userDetails)
+    if alocacao == []:
+        return jsonify({"message": "Alocação não encontrada"}), 400
     return jsonify(alocacao)
 
 
@@ -104,6 +110,7 @@ def alocacao_post():
     if criarAlocacao == 0:
         return jsonify({"message": "Falha na criação da alocacao"}), 400
     return jsonify("status" "ok, Criado com sucesso"), 201
+
 
 @app.route('/alocacao/update', methods=['POST'])
 def alocacao_up():
@@ -134,6 +141,8 @@ def home_carro():
 def carro_get():
     userDetails = (request.json)
     carro = ServiceTest.selectCarro(userDetails)
+    if carro == []:
+        return jsonify({"message": "Carro não encontrado"}), 400
     return jsonify(carro)
 
 

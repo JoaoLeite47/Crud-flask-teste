@@ -73,8 +73,8 @@ class TesteDao:
     def selectCategoria(mycursor: object, userDetails: dict) -> list:
         cod_categ = userDetails['cod_categ']
         mycursor.execute(
-            "SELECT * FROM Categoria WHERE cod_categ = %s", (cod_categ,))
-        myresult = mycursor.fetchone()
+            "SELECT * FROM Categoria WHERE cod_categ = '"+str(cod_categ)+"'")
+        myresult = mycursor.fetchall()
         return myresult
 
     def criarCategoria(mycursor: object, mydb: object, userDetails: dict) -> list:
@@ -110,8 +110,8 @@ class TesteDao:
     def selectAlocacao(mycursor: object, userDetails: dict) -> list:
         id_aloc = userDetails['id_aloc']
         mycursor.execute(
-            "SELECT * FROM Alocacao WHERE id_aloc = %s", (id_aloc,))
-        myresult = mycursor.fetchone()
+            "SELECT * FROM Alocacao WHERE id_aloc = '"+str(id_aloc)+"'")
+        myresult = mycursor.fetchall()
         return myresult
 
     def criarAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
@@ -148,8 +148,9 @@ class TesteDao:
 
     def selectCarro(mycursor: object, userDetails: dict) -> list:
         chassi = userDetails['chassi']
-        mycursor.execute("SELECT * FROM Carro WHERE chassi = %s", (chassi,))
-        myresult = mycursor.fetchone()
+        mycursor.execute(
+            "SELECT * FROM Carro WHERE chassi = '"+str(chassi)+"'")
+        myresult = mycursor.fetchall()
         return myresult
 
     def criarCarro(mycursor: object, mydb: object, userDetails: dict) -> list:
