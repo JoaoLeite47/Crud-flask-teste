@@ -5,3 +5,4 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)  # Inicializa a aplicação
+CORS(app)
