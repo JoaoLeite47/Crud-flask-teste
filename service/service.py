@@ -42,10 +42,9 @@ class ServiceTest:
         conex = TesteDao.conectar()
         results = TesteDao.selectCategorias(conex[0])
         result_total = []
-        for categoria in results:
-            categoria = {
-                'cod_categ': categoria[0], 'descricao': categoria[1], 'valor_diaria': categoria[2]}
-        result_total.append(categoria)
+        for categorias in results:
+            categorias = {'cod_categ': categorias[0], 'descricao': categorias[1], 'valor_diaria': categorias[2],}
+        result_total.append(categorias)
         return result_total
 
     def selectCategoria(userDetails):

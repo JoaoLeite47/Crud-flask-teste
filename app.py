@@ -152,7 +152,7 @@ def carro_post():
     criarCarro = ServiceTest.criarCarro(userDetails)
     if criarCarro == 0:
         return jsonify({"message": "Falha na criação do carro"}), 400
-    return jsonify("status" "ok, Alterado com sucesso"), 201
+    return jsonify("status" "ok, Criado com sucesso"), 201
 
 
 @app.route('/carro/update', methods=['POST'])
