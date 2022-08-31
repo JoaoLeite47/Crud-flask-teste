@@ -119,9 +119,8 @@ class TesteDao:
         chassi_fk = userDetails['chassi_fk']
         dt_saida = userDetails['dt_saida']
         dt_entrega = userDetails['dt_entrega']
-        id_aloc = userDetails['id_aloc']
-        mycursor.execute("INSERT INTO Alocacao (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc) VALUES (%s, %s, %s, %s, %s)",
-                         (cpf_fk, chassi_fk, dt_saida, dt_entrega, id_aloc))
+        mycursor.execute("INSERT INTO Alocacao (cpf_fk, chassi_fk, dt_saida, dt_entrega) VALUES (%s, %s, %s, %s)",
+                         (cpf_fk, chassi_fk, dt_saida, dt_entrega))
         mydb.commit()
         return mycursor.rowcount
 

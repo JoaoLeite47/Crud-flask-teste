@@ -47,8 +47,8 @@ def cliente_delete(cpf):
 
 @app.route("/categorias")
 def home_cat():
-    categoria = ServiceTest.selectCategorias()
-    return jsonify(categoria)
+    categorias = ServiceTest.selectCategorias()
+    return jsonify(categorias)
 
 
 @app.route("/categoria", methods=['GET'])
