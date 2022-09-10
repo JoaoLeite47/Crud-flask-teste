@@ -12,10 +12,9 @@ class ServiceTest:
             result_total.append(cliente)
         return result_total
 
-    def selectCliente(userDetails):
+    def selectCliente(cpf):
         conex = TesteDao.conectar()
-        results = TesteDao.selectCliente(conex[0], userDetails)
-        print(results)
+        results = TesteDao.selectCliente(conex[0], cpf)
         result_total = []
         for cliente in results:
             cliente = {'rg': cliente[0], 'dt_nascimento': cliente[1], 'cnh': cliente[2],
@@ -47,9 +46,9 @@ class ServiceTest:
         result_total.append(categorias)
         return result_total
 
-    def selectCategoria(userDetails):
+    def selectCategoria(cod_categ):
         conex = TesteDao.conectar()
-        results = TesteDao.selectCategoria(conex[0], userDetails)
+        results = TesteDao.selectCategoria(conex[0], cod_categ)
         result_total = []
         for categoria in results:
             categoria = {
@@ -83,9 +82,9 @@ class ServiceTest:
             result_total.append(alocacao)
         return result_total
 
-    def selectAlocacao(userDetails):
+    def selectAlocacao(id_aloc):
         conex = TesteDao.conectar()
-        results = TesteDao.selectAlocacao(conex[0], userDetails)
+        results = TesteDao.selectAlocacao(conex[0], id_aloc)
         result_total = []
         for alocacao in results:
             alocacao = {'cpf_fk': alocacao[0], 'chassi_fk': alocacao[1], 'dt_saida': alocacao[2],
@@ -118,9 +117,9 @@ class ServiceTest:
             result_total.append(carros)
         return result_total
 
-    def selectCarro(userDetails):
+    def selectCarro(chassi):
         conex = TesteDao.conectar()
-        results = TesteDao.selectCarro(conex[0], userDetails)
+        results = TesteDao.selectCarro(conex[0], chassi)
         result_total = []
         for carro in results:
             carro = {'chassi': carro[0], 'cor': carro[1], 'modelo': carro[2],

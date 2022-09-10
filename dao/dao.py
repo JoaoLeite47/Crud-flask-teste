@@ -30,8 +30,7 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectCliente(mycursor: object, userDetails: dict) -> list:
-        cpf = userDetails['cpf']
+    def selectCliente(mycursor: object, cpf: str) -> list:
         mycursor.execute("SELECT * FROM Cliente WHERE cpf = '"+str(cpf)+"'")
         myresult = mycursor.fetchall()
         return myresult
@@ -70,8 +69,7 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectCategoria(mycursor: object, userDetails: dict) -> list:
-        cod_categ = userDetails['cod_categ']
+    def selectCategoria(mycursor: object, cod_categ: int) -> list:
         mycursor.execute(
             "SELECT * FROM Categoria WHERE cod_categ = '"+str(cod_categ)+"'")
         myresult = mycursor.fetchall()
@@ -107,8 +105,7 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectAlocacao(mycursor: object, userDetails: dict) -> list:
-        id_aloc = userDetails['id_aloc']
+    def selectAlocacao(mycursor: object, id_aloc: int) -> list:
         mycursor.execute(
             "SELECT * FROM Alocacao WHERE id_aloc = '"+str(id_aloc)+"'")
         myresult = mycursor.fetchall()
@@ -145,8 +142,7 @@ class TesteDao:
         myresult = mycursor.fetchall()
         return myresult
 
-    def selectCarro(mycursor: object, userDetails: dict) -> list:
-        chassi = userDetails['chassi']
+    def selectCarro(mycursor: object, chassi: str) -> list:
         mycursor.execute(
             "SELECT * FROM Carro WHERE chassi = '"+str(chassi)+"'")
         myresult = mycursor.fetchall()

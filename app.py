@@ -8,10 +8,9 @@ def home():
     return jsonify(clientes)
 
 
-@app.route("/cliente", methods=['GET'])
-def cliente():
-    userDetails = (request.json)
-    cliente = ServiceTest.selectCliente(userDetails)
+@app.route("/cliente/<cpf>", methods=['GET'])
+def cliente(cpf):
+    cliente = ServiceTest.selectCliente(cpf)
     if cliente == []:
         return jsonify({"message": "Cliente não encontrado"}), 400
     return jsonify(cliente)
@@ -51,10 +50,9 @@ def home_cat():
     return jsonify(categorias)
 
 
-@app.route("/categoria", methods=['GET'])
-def cat_get():
-    userDetails = (request.json)
-    categoria = ServiceTest.selectCategoria(userDetails)
+@app.route("/categoria/<cod_categ>", methods=['GET'])
+def cat_get(cod_categ):
+    categoria = ServiceTest.selectCategoria(cod_categ)
     if categoria == []:
         return jsonify({"message": "Categoria não encontrada"}), 400
     return jsonify(categoria)
@@ -94,10 +92,9 @@ def home_alocacao():
     return jsonify(alocacoes)
 
 
-@app.route("/alocacao", methods=['GET'])
-def aloc_get():
-    userDetails = (request.json)
-    alocacao = ServiceTest.selectAlocacao(userDetails)
+@app.route("/alocacao/<id_aloc>", methods=['GET'])
+def aloc_get(id_aloc):
+    alocacao = ServiceTest.selectAlocacao(id_aloc)
     if alocacao == []:
         return jsonify({"message": "Alocação não encontrada"}), 400
     return jsonify(alocacao)
@@ -137,10 +134,9 @@ def home_carro():
     return jsonify(carros)
 
 
-@app.route("/carro", methods=['GET'])
-def carro_get():
-    userDetails = (request.json)
-    carro = ServiceTest.selectCarro(userDetails)
+@app.route("/carro/<chassi>", methods=['GET'])
+def carro_get(chassi):
+    carro = ServiceTest.selectCarro(chassi)
     if carro == []:
         return jsonify({"message": "Carro não encontrado"}), 400
     return jsonify(carro)
