@@ -61,10 +61,10 @@ class ServiceTest:
         results = TesteDao.criarCategoria(conex[0], conex[1], userDetails)
         return results
 
-    def updateCategoria(userDetails):
+    def updateCategoria(userDetails, cod_categ):
         conex = TesteDao.conectar()
         results = TesteDao.updateCategoria(
-            conex[0], conex[1], userDetails)
+            conex[0], conex[1], userDetails, cod_categ)
         return results
 
     def deleteCategoria(cod_categ):
@@ -97,9 +97,9 @@ class ServiceTest:
         results = TesteDao.criarAlocacao(conex[0], conex[1], userDetails)
         return results
 
-    def updateAlocacao(userDetails):
+    def updateAlocacao(userDetails, id_aloc):
         conex = TesteDao.conectar()
-        results = TesteDao.updateAlocacao(conex[0], conex[1], userDetails)
+        results = TesteDao.updateAlocacao(conex[0], conex[1], userDetails, id_aloc)
         return results
 
     def deleteAlocacao(id_aloc):
@@ -123,7 +123,7 @@ class ServiceTest:
         result_total = []
         for carro in results:
             carro = {'chassi': carro[0], 'cor': carro[1], 'modelo': carro[2],
-                     'marca': carro[3], 'placa': carro[4], 'ano': carro[5], 'categoria_fk': carro[5]}
+                     'marca': carro[3], 'placa': carro[4], 'ano': carro[5], 'categoria_fk': carro[6]}
             result_total.append(carro)
         return result_total
 
@@ -132,9 +132,9 @@ class ServiceTest:
         results = TesteDao.criarCarro(conex[0], conex[1], userDetails)
         return results
 
-    def updateCarro(userDetails):
+    def updateCarro(userDetails, chassi):
         conex = TesteDao.conectar()
-        results = TesteDao.updateCarro(conex[0], conex[1], userDetails)
+        results = TesteDao.updateCarro(conex[0], conex[1], userDetails, chassi)
         return results
 
     def deleteCarro(chassi):

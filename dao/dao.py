@@ -48,7 +48,6 @@ class TesteDao:
         return mycursor.rowcount
 
     def updateCliente(mycursor: object, mydb: object, cpf: str, userDetails: dict) -> list:
-        cpf = userDetails['cpf']
         nome = userDetails['nome']
         endereco = userDetails['endereco']
         cnh = userDetails['cnh']
@@ -83,8 +82,7 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCategoria(mycursor: object, mydb: object, userDetails: dict) -> list:
-        cod_categ = int(userDetails['cod_categ'])
+    def updateCategoria(mycursor: object, mydb: object, userDetails: dict, cod_categ: int) -> list:
         descricao = userDetails['descricao']
         valor_diaria = userDetails['valor_diaria']
         sql = "UPDATE Categoria SET descricao ='" + \
@@ -121,12 +119,11 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict) -> list:
+    def updateAlocacao(mycursor: object, mydb: object, userDetails: dict, id_aloc: int) -> list:
         cpf_fk = userDetails['cpf_fk']
         chassi_fk = userDetails['chassi_fk']
-        dt_saida = int(userDetails['dt_saida'])
-        dt_entrega = int(userDetails['dt_entrega'])
-        id_aloc = userDetails['id_aloc']
+        dt_saida = userDetails['dt_saida']
+        dt_entrega = userDetails['dt_entrega']
         sql = "UPDATE Alocacao SET cpf_fk = '"+str(cpf_fk)+"', chassi_fk ='"+str(chassi_fk)+"', dt_saida = '"+str(
             dt_saida)+"', dt_entrega = '"+str(dt_entrega)+"' WHERE id_aloc = '"+str(id_aloc)+"'"
         mycursor.execute(sql)
@@ -161,8 +158,7 @@ class TesteDao:
         mydb.commit()
         return mycursor.rowcount
 
-    def updateCarro(mycursor: object, mydb: object, userDetails: dict) -> list:
-        chassi = userDetails['chassi']
+    def updateCarro(mycursor: object, mydb: object, userDetails: dict, chassi: str) -> list:
         marca = userDetails['marca']
         modelo = int(userDetails['modelo'])
         ano = int(userDetails['ano'])

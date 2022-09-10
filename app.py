@@ -67,10 +67,10 @@ def categoria_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/categoria/update', methods=['POST'])
-def categoria_put():
+@app.route('/categoria/update/<cod_categ>', methods=['POST'])
+def categoria_put(cod_categ):
     userDetails = (request.json)
-    categoria = ServiceTest.updateCategoria(userDetails)
+    categoria = ServiceTest.updateCategoria(userDetails, cod_categ)
     if categoria == None:
         return jsonify({"message": "Cliente não encontrado"}), 400
     if categoria == 0:
@@ -109,10 +109,10 @@ def alocacao_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/alocacao/update', methods=['POST'])
-def alocacao_up():
+@app.route('/alocacao/update/<id_aloc>', methods=['POST'])
+def alocacao_up(id_aloc):
     userDetails = (request.json)
-    alocacao = ServiceTest.updateAlocacao(userDetails)
+    alocacao = ServiceTest.updateAlocacao(userDetails, id_aloc)
     if alocacao == None:
         return jsonify({"message": "Alocação não encontrada"}), 400
     if alocacao == 0:
@@ -151,10 +151,10 @@ def carro_post():
     return jsonify("status" "ok, Criado com sucesso"), 201
 
 
-@app.route('/carro/update', methods=['POST'])
-def carro_up():
+@app.route('/carro/update/<chassi>', methods=['POST'])
+def carro_up(chassi):
     userDetails = (request.json)
-    carro = ServiceTest.updateCarro(userDetails)
+    carro = ServiceTest.updateCarro(userDetails, chassi)
     if carro == None:
         return jsonify({"message": "Carro não encontrado"}), 400
     if carro == 0:
