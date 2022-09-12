@@ -42,8 +42,9 @@ class ServiceTest:
         results = TesteDao.selectCategorias(conex[0])
         result_total = []
         for categorias in results:
-            categorias = {'cod_categ': categorias[0], 'descricao': categorias[1], 'valor_diaria': categorias[2],}
-        result_total.append(categorias)
+            categorias = {
+                'cod_categ': categorias[0], 'descricao': categorias[1], 'valor_diaria': categorias[2]}
+            result_total.append(categorias)
         return result_total
 
     def selectCategoria(cod_categ):
@@ -88,7 +89,7 @@ class ServiceTest:
         result_total = []
         for alocacao in results:
             alocacao = {'cpf_fk': alocacao[0], 'chassi_fk': alocacao[1], 'dt_saida': alocacao[2],
-                        'dt_entrega': alocacao[3], 'id_alic': alocacao[4]}
+                        'dt_entrega': alocacao[3], 'id_aloc': alocacao[4]}
             result_total.append(alocacao)
         return result_total
 
@@ -99,7 +100,8 @@ class ServiceTest:
 
     def updateAlocacao(userDetails, id_aloc):
         conex = TesteDao.conectar()
-        results = TesteDao.updateAlocacao(conex[0], conex[1], userDetails, id_aloc)
+        results = TesteDao.updateAlocacao(
+            conex[0], conex[1], userDetails, id_aloc)
         return results
 
     def deleteAlocacao(id_aloc):
